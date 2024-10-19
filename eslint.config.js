@@ -15,6 +15,7 @@ const compat = new FlatCompat({
 
 export default [
   pluginJs.configs.recommended,
+  // [Support of new eslint flat config](https://github.com/airbnb/javascript/issues/2804)
   ...compat.extends('airbnb-base', 'prettier'),
   {
     languageOptions: {
@@ -24,6 +25,8 @@ export default [
     },
     rules: {
       'import/no-extraneous-dependencies': ['error', { packageDir: __dirname }],
+      // https://nodejs.org/api/esm.html#mandatory-file-extensions
+      'import/extensions': ['error', 'always'],
     },
   },
 ];
