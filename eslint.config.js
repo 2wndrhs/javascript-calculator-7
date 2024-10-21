@@ -15,7 +15,13 @@ const compat = new FlatCompat({
 export default [
   pluginJs.configs.recommended,
   ...compat.extends("airbnb-base"),
-  { languageOptions: { globals: globals.node, ecmaVersion: "latest" } },
+  {
+    languageOptions: { globals: globals.node, ecmaVersion: "latest" },
+    rules: {
+      // package import를 제외한 모든 import 구문에 대해 확장자를 사용하도록 강제
+      "import/extensions": ["error", "ignorePackages"],
+    },
+  },
   {
     files: ["eslint.config.js"],
     rules: {
