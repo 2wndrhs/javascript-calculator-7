@@ -1,8 +1,26 @@
-import globals from "globals";
+import { FlatCompat } from "@eslint/eslintrc";
 import pluginJs from "@eslint/js";
+import globals from "globals";
+import path from "path";
+import { fileURLToPath } from "url";
 
+// mimic CommonJS variables -- not needed if using CommonJS
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+});
 
 export default [
-  {languageOptions: { globals: globals.node }},
   pluginJs.configs.recommended,
+  ...compat.extends("airbnb-base"),
+  { languageOptions: { globals: globals.node, ecmaVersion: "latest" } },
+  {
+    // eslint.config.js 파일에서만 'no-underscore-dangle' 규칙을 비활성화
+    files: ["eslint.config.js"],
+    rules: {
+      "no-underscore-dangle": "off",
+    },
+  },
 ];
