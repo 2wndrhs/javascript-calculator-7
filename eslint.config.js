@@ -17,10 +17,12 @@ export default [
   ...compat.extends("airbnb-base"),
   { languageOptions: { globals: globals.node, ecmaVersion: "latest" } },
   {
-    // eslint.config.js 파일에서만 'no-underscore-dangle' 규칙을 비활성화
     files: ["eslint.config.js"],
     rules: {
+      // eslint.config.js 파일에서만 'no-underscore-dangle' 규칙을 비활성화
       "no-underscore-dangle": "off",
+      // package.json 파일이 위치한 프로젝트 루트 디렉토리 경로를 명시
+      "import/no-extraneous-dependencies": ["error", { packageDir: __dirname }],
     },
   },
 ];
